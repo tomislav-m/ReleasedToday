@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ReleasedToday.Models.Album>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="col-md-3">@ViewBag.Date2</h2>
+        <div class="form-inline">
+            <form class="center" asp-action="Index">
+                <input class="form-control" id="datepicker" name="d" value="@ViewBag.Date" />
+                <input class="btn btn-primary" type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var album in Model)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="bordered-image center-block">
+                    <img src="@album.ImageExtraLarge" />
+                    <p class="text-center">
+                        @album.Artist - @album.Name, @album.ReleaseDate.Day.@album.ReleaseDate.Month.@album.ReleaseDate.Year.
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ dateFormat: 'dd.mm.yy.' });
+        });
+    </script>
+}
