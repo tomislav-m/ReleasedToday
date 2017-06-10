@@ -19,8 +19,15 @@ namespace ReleasedToday
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            if (env.IsDevelopment())
+            {
+                // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets<Startup>();
+            }
+
+            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -32,6 +39,10 @@ namespace ReleasedToday
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+				
+			services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc();
         }
@@ -45,6 +56,7 @@ namespace ReleasedToday
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+				app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
             else
@@ -53,6 +65,8 @@ namespace ReleasedToday
             }
 
             app.UseStaticFiles();
+			
+			app.UseIdentity();
 
             app.UseMvc(routes =>
             {
