@@ -42,11 +42,11 @@ textarea {
     }
 }
 
-.bordered-image {
+.bordered-image, .bordered-image > a {
     max-width: 400px;
     width: 250px;
     height: 350px;
-    padding-top:5px;
+    padding-top: 5px;
 }
 
 .bordered-image > p {
@@ -54,7 +54,7 @@ textarea {
     font-weight: bold;
 }
 
-.bordered-image > img {
+.bordered-image > img, .bordered-image > a > img {
     width: 250px;
 }
 

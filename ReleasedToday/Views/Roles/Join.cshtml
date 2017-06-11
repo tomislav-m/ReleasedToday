@@ -1,0 +1,35 @@
+﻿@model ReleasedToday.ViewModels.UserRoleViewModel
+
+@{ 
+    ViewData["Title"] = "Pridruži";
+}
+
+<h2>Pridruži ulogu korisniku</h2>
+
+<form asp-action="Join">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Korisnik</label>
+            <div class="col-md-10">
+                <select asp-for="UserId" class="form-control" asp-items="@Model.UserList"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Uloga</label>
+            <div class="col-md-10">
+                <select asp-for="RoleId" class="form-control" asp-items="@Model.RoleList"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Pridruži" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Natrag na listu uloga</a>
+</div>

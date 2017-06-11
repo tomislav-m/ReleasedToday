@@ -1,0 +1,53 @@
+@model IList<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@ViewBag.Role</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Korisničko ime</th>
+                <th>Mail</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>
+                    <form asp-action="RemoveFromRole" asp-route-userId="@item.Id">
+                        <input type="hidden" name="role"  value="@ViewBag.Role" />
+                        <button type="submit" class="btn btn-danger btn-xs del" title="Ukloni korisnika iz uloge">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+        $(".del").click(function () {
+            if (!confirm("Jeste li sigurni?")) {
+                return false;
+            }
+        });
+    });
+</script>
+}
