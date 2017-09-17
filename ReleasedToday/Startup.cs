@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using ReleasedToday.Data;
 using ReleasedToday.Models;
 using ReleasedToday.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace ReleasedToday
 {
@@ -50,6 +51,9 @@ namespace ReleasedToday
             services.AddMvc();
 
             // Add application services.
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
+            services.ConfigureApplicationCookie(options => options.LogoutPath = "/Account/LogOut");
+            services.ConfigureApplicationCookie(options => options.ExpireTimeSpan = TimeSpan.FromDays(150));
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
@@ -65,11 +69,6 @@ namespace ReleasedToday
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
-
-                // Cookie settings
-                options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
-                options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
-                options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOut";
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
@@ -95,7 +94,7 @@ namespace ReleasedToday
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 

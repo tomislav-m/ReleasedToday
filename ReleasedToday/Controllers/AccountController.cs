@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using ReleasedToday.Models;
 using ReleasedToday.Models.AccountViewModels;
 using ReleasedToday.Services;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ReleasedToday.Controllers
 {
@@ -28,14 +29,12 @@ namespace ReleasedToday.Controllers
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -48,7 +47,7 @@ namespace ReleasedToday.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            await HttpContext.SignOutAsync(_externalCookieScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -141,7 +140,7 @@ namespace ReleasedToday.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Index2), "Home");
         }
 
         //
@@ -469,7 +468,7 @@ namespace ReleasedToday.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(HomeController.Index2), "Home");
             }
         }
 

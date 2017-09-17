@@ -22,7 +22,7 @@ namespace ReleasedToday.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string d)
+        public IActionResult Index2(string d)
         {
 
             DateTime date = new DateTime();
