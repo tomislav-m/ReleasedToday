@@ -1,6 +1,9 @@
 ﻿.center {
     margin-top: 17px;
     margin-bottom: 3px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bordered-image, .bordered-image > a {
