@@ -1,18 +1,22 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
-            <h2 class="col-md-3">{{ date }}</h2>
-        </div>
-        <div class="col-md-3">
-            <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+        <div class="col-md-12">
+            <h2 class="col-xs-6 col-sm-4 col-md-3 col-lg-3">{{ date }}</h2>
+            <div class="center col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                <input class="form-control" type="date" [(ngModel)]="selectedDate" (change)="change()" />
+            </div>
         </div>
     </div>
     <div class="row">
-        <div *ngIf="!albums">Loading...</div>
+        <div *ngIf="!loaded">Loading...</div>
         <div *ngFor="let album of albums">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <img src="{{ album.imageLarge }}" />
-                <p> {{ album.name }} </p>
+                <div class="bordered-image">
+                    <img src="{{ album.imageExtraLarge }}" onerror="this.src='images/album.png'" />
+                    <p class="text-center">
+                        {{ album.artist }} - {{ album.name }}, {{ album.releaseDate | date: 'd.M.yyyy.' }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>

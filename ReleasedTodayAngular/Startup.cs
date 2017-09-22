@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReleasedToday.Data;
+using ReleasedTodayAngular.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ReleasedTodayAngular

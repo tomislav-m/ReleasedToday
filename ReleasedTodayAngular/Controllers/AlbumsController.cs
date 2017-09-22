@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ReleasedToday.Data;
-using ReleasedToday.Models;
+using ReleasedTodayAngular.Data;
+using ReleasedTodayAngular.Models;
 
 namespace ReleasedTodayAngular.Controllers
 {
